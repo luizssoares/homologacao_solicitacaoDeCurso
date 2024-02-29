@@ -1,0 +1,768 @@
+<html>
+
+<head>
+	<link type="text/css" rel="stylesheet" href="/portal/resources/style-guide/css/fluig-style-guide.min.css" />
+	<script type="text/javascript" src="/portal/resources/js/jquery/jquery.js"></script>
+	<script type="text/javascript" src="/portal/resources/js/jquery/jquery-ui.min.js"></script>
+	<script type="text/javascript" src="/portal/resources/js/mustache/mustache-min.js"></script>
+	<script type="text/javascript" src="/portal/resources/style-guide/js/fluig-style-guide.min.js"
+		charset="utf-8"></script>
+
+	<!--script src="https://igorescobar.github.io/jQuery-Mask-Plugin/js/jquery.mask.min.js"></script-->
+
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
+		integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+	<!--script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script-->
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"
+		integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49"
+		crossorigin="anonymous"></script>
+	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"
+		integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy"
+		crossorigin="anonymous"></script>
+
+	<script type="text/javascript" src="/webdesk/vcXMLRPC.js"></script>
+	<script type="text/javascript" src="custom.js"></script>
+	<script type="text/javascript" src="paineis.js"></script>
+
+	<style type="text/css">
+		.Obrigatorio {
+			color: red;
+		}
+	</style>
+
+</head>
+
+<body>
+	<div class="fluig-style-guide">
+		<form name="form" role="form">
+
+			<input type="hidden" name="hd_numSuperior" id="numSuperior">
+			<input type="hidden" name="hdn_lastState" id="hdn_lastState">
+			<input type="hidden" name="hdn_State" id="hdn_State">
+			<input type="hidden" name="hdn_diretoria" id="hdn_diretoria">
+			<input type="hidden" name="prazo" id="prazo">
+
+			<!-- Hidden Dotação Orçamentária -->
+			<input type="hidden" name="codProjeto" id="codProjeto">
+			<input type="hidden" name="codAcao" id="codAcao">
+			<input type="hidden" name="codRecurso" id="codRecurso">
+
+			<div class="panel panel-success" id="SolicitaodeEvento">
+				<div class="panel-heading">
+					<div class="row justify-content-cen/ter">
+						<div class="col-md-8">
+							<h1><i class="flaticon flaticon-person-academy-list icon-thumbnail-sm"></i> Solicitação de
+								Participação em Evento</h1>
+						</div>
+						<div class="col-md-4" style="text-align: right; top:35px;">
+							<button type="button" class="btn btn btn-outline-light"
+								style="border-width:1;border-color:white;">
+								<a href="https://myweb.am.sebrae.com.br/portal/p/1/videos/utic/5319/215106"
+									target="_blank"><strong>Tutorial</strong></a>
+								<i class="flaticon flaticon-play-circle icon-sm"></i>
+							</button>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<div class="progress" style="display:non/e;">
+				<div class="progress-bar progress-bar-striped progress-bar-warning" role="progressbar" id='pro'>33%
+				</div>
+			</div>
+			<div class="col-md-7">
+				<div class="panel panel-primary" id="panel_dadosocup">
+					<div class="panel-heading ">
+						<div class="row justify-content-center">
+							<div class="col-md-2" style="text-align: left;">
+								<button type="button" class="btn btn btn-outline-light pani"
+									onclick="teste('panel_solicitante')" disabled
+									style="text-align: right; border-width:1;border-color:white;"><i
+										class="flaticon flaticon-arrow-left icon-sm"></i><strong>Voltar Etapa
+									</strong></button>
+							</div>
+							<h3 class="col-md-4 panel-title" style="text-align: center; font-size: 16px;"><i
+									class="flaticon flaticon-border-color icon-md" st></i> Dados da Solicitação</h3>
+							<div class="col-md-2" style="text-align: right;">
+								<button type="button" class="btn btn btn-outline-light pani"
+									onclick="verificaEtapa('panel_dadosocup');"
+									style="border-width:1;border-color:white;"><strong>Próxima Etapa </strong><i
+										class="flaticon flaticon-arrow-right icon-sm"></i></i></button>
+							</div>
+						</div>
+					</div>
+					<div class="panel-body">
+						<div class="form-group row justify-content-center">
+							<div class="col-md-2">
+								<label for="tp_solicitacao">Tipo de Evento: <span
+										class="Obrigatorio"><strong>*</strong></span></label>
+								<select class="form-control" name="tp_solicitacao" id="tp_solicitacao">
+									<option value="" selected disabled>Selecione</option>
+									<option value="mercado">Mercado</option>
+									<option value="in company">In Company</option>
+								</select>
+							</div>
+							<div class="col-md-2">
+								<label for="cidade">Evento Local ?</label>
+								<div class="checkbox">
+									<label><input type="checkbox" name="cidade" id="cidade" value="sim">Sim</label>
+								</div>
+							</div>
+							<div class="col-md-3">
+								<label for="localidade">Cidade/UF: <span
+										class="Obrigatorio"><strong>*</strong></span></label>
+								<input type="text" class="form-control" name="localidade" id="localidade">
+							</div>
+						</div>
+						<div class="form-group row justify-content-center">
+							<div class="col-md-3">
+								<label for="txt_evento">Nome do Evento: <span
+										class="Obrigatorio"><strong>*</strong></span></label>
+								<input type="text" class="form-control" name="txt_evento" id="txt_evento">
+							</div>
+							<div class="col-md-4">
+								<label for="txt_tipoevento">Endereço do Evento: <span
+										class="Obrigatorio"><strong>*</strong></span></label>
+								<input type="text" class="form-control" name="txt_tipoevento" id="txt_tipoevento">
+							</div>
+						</div>
+						<div class="form-group row justify-content-center">
+							<div class="col-md-4">
+								<label for="txt_emppromot">Empresa Promotora: <span
+										class="Obrigatorio"><strong>*</strong></span></label>
+								<input type="text" class="form-control" name="txt_emppromot" id="txt_emppromot">
+							</div>
+							<div class="col-md-3">
+								<label for="txt_cnpj">CNPJ: <span class="Obrigatorio"><strong>*</strong></span></label>
+								<input type="text" class="form-control" name="txt_cnpj" id="txt_cnpj"
+									onkeypress="return onlynumber();" onkeyup="maskcnpj()" placeholder="Somente Números"
+									maxlength="18">
+							</div>
+						</div>
+
+						<div class="form-group row justify-content-center">
+							<div class="col-md-7">
+								<div id="alertDate" style="display:none;background-color: #58595bd6;"
+									class="alert alert-info ALERTA" role="alert">
+								</div>
+							</div>
+						</div>
+
+						<div class="form-group row justify-content-center">
+							<div class="col-md-2">
+								<label for="txt_inicio">Início: <span
+										class="Obrigatorio"><strong>*</strong></span></label>
+								<div class="input-group date">
+									<input type="text" class="form-control" name="txt_inicio" id="txt_inicio">
+									<span class="input-group-addon"><span
+											class="flaticon flaticon-today "></span></span>
+								</div>
+							</div>
+							<div class="col-md-2">
+								<label for="txt_termino">Término: <span
+										class="Obrigatorio"><strong>*</strong></span></label>
+								<div class="input-group date">
+									<input type="text" class="form-control" name="txt_termino" id="txt_termino"
+										onchange="alertaData()">
+									<span class="input-group-addon"><span
+											class="flaticon flaticon-event l"></span></span>
+								</div>
+							</div>
+							<div class="col-md-2">
+								<label for="carga_horaria">Carga Horária: <span
+										class="Obrigatorio"><strong>*</strong></span></label>
+								<input type="text" class="form-control" name="carga_horaria" id="carga_horaria">
+							</div>
+						</div>
+						<div class="form-group" id="mercad">
+							<div class="row justify-content-center">
+								<div class="col-md-2">
+									<label for="TipoEvento">Natureza do Evento<span
+											class="Obrigatorio"><strong>*</strong></span></label>
+									<select class="form-control" name="TipoEvento" id="TipoEvento">
+										<option value="" selected disabled>Selecione</option>
+										<option value="Individual">Individual</option>
+										<option value="Em Grupo">Em Grupo</option>
+									</select>
+								</div>
+								<div class="col-md-4" id="atividade">
+									<label for="ta_atividades">Principais Atividades que o <u>Solicitante</u> desenvolve
+										na unidade: <span class="Obrigatorio"><strong>*</strong></span></label>
+									<textarea name="ta_atividades" id="ta_atividades" class="form-control"
+										value=""></textarea>
+								</div>
+							</div>
+						</div>
+						<div class="form-group" id="company">
+							<div class="row justify-content-center">
+								<div class="col-md-6">
+									<label for="pb_alvo">Público Alvo: <span
+											class="Obrigatorio"><strong>*</strong></span></label>
+									<textarea rows="2" name="pb_alvo" id="pb_alvo" class="form-control"></textarea>
+								</div>
+							</div>
+
+						</div>
+						<!-- Lista de Participantes -->
+						<div id="Listacompany">
+							<label for="Lista_Part"><i class="flaticon flaticon-community-person icon-md"
+									aria-hidden="true"></i> Lista de Participantes:</label>
+							<div class="form-group row">
+								<table id="Lista_Part" tablename="Lista_Part" class="table table-hover">
+									<thead>
+										<tr>
+											<td></td>
+										</tr>
+									</thead>
+									<tbody>
+										<tr>
+											<td>
+												<div class="col-md-4">
+													<div class="form-group">
+														<label for="txt_Participante">Nome do Participante: <span
+																class="Obrigatorio"><strong>*</strong></span></label>
+														<select dataset="colleague" datasetkey="colleagueId"
+															datasetvalue="colleagueName" class="form-control"
+															id="txt_Participante" name="txt_Participante"></select>
+													</div>
+												</div>
+
+												<div class="col-md-8">
+													<div class="form-group">
+														<label for="txt_AtivDesenv">Atividades que o <u>Participante</u>
+															desenvolve na unidade: <span
+																class="Obrigatorio"><strong>*</strong></span></label>
+														<textarea rows="2" name="txt_AtivDesenv" id="txt_AtivDesenv"
+															class="form-control"></textarea>
+														<!--input type="text" class="form-control" id="txt_AtivDesenv" name="txt_AtivDesenv"-->
+													</div>
+												</div>
+
+											</td>
+										</tr>
+									</tbody>
+
+								</table>
+							</div>
+						</div>
+
+					</div>
+				</div>
+
+				<div class="panel panel-primary" id="panel_justificativa">
+					<div class="panel-heading ">
+						<div class="row justify-content-center">
+							<div class="col-md-2" style="text-align: left;">
+								<button type="button" class="btn btn-outline-success pani"
+									onclick="teste('panel_dadosocup')" style="border-width:1;border-color:white;"><i
+										class="flaticon flaticon-arrow-left icon-sm"></i><strong>Voltar Etapa
+									</strong></button>
+							</div>
+							<h3 class="col-md-4 panel-title" style="text-align: center; font-size: 16px;"><i
+									class="flaticon flaticon-tests-central icon-md"></i> Justificativa da Participação
+							</h3>
+							<div class="col-md-2" style="text-align: right;">
+								<button type="button" class="btn btn-outline-success pani"
+									onclick="verificaEtapa('panel_justificativa');"
+									style="border-width:1;border-color:white;"><strong>Próxima Etapa </strong><i
+										class="flaticon flaticon-arrow-right icon-sm"></i></button>
+							</div>
+						</div>
+					</div>
+					<div class="panel-body">
+						<div class="form-group row justify-content-center">
+							<div class="col-md-6">
+								<label for="ta_relato">Breve Relato sobre o Evento: <span
+										class="Obrigatorio"><strong>*</strong></span></label>
+								<textarea rows="4" name="ta_relato" id="ta_relato" class="form-control"></textarea>
+							</div>
+						</div>
+						<div class="form-group row justify-content-center">
+							<div class="col-md-6">
+								<label for="ta_objetivo">Objetivo da Participação no Evento: <span
+										class="Obrigatorio"><strong>*</strong></span></label>
+								<textarea rows="4" name="ta_objetivo" id="ta_objetivo" class="form-control"></textarea>
+							</div>
+						</div>
+						<div class="form-group row justify-content-center">
+							<div class="col-md-6">
+								<label for="ta_resultados">Resultados Esperados: <span
+										class="Obrigatorio"><strong>*</strong></span></label>
+								<textarea rows="4" name="ta_resultados" id="ta_resultados"
+									class="form-control"></textarea>
+							</div>
+						</div>
+						<div class="form-group row justify-content-center">
+							<div class="col-md-6">
+								<label for="ta_relacao">Relação com as Atividades Envolvidas: <span
+										class="Obrigatorio"><strong>*</strong></span></label>
+								<textarea rows="4" name="ta_relacao" id="ta_relacao" class="form-control"></textarea>
+							</div>
+						</div>
+						<div class="form-group row justify-content-center">
+							<div class="col-md-6">
+								<label for="ta_estrategia">Estratégia de Disseminação e Aplicação do Conhecimento
+									Adquirido: <span class="Obrigatorio"><strong>*</strong></span></label>
+								<textarea rows="4" name="ta_estrategia" id="ta_estrategia"
+									class="form-control"></textarea>
+							</div>
+						</div>
+					</div>
+				</div>
+
+				<div class="panel panel-primary" id="panel_despesas">
+					<div class="panel-heading ">
+						<div class="row justify-content-center">
+							<div class="col-md-2" style="text-align: left;">
+								<button type="button" class="btn btn-outline-success pani"
+									onclick="teste('panel_justificativa')" style="border-width:1;border-color:white;"><i
+										class="flaticon flaticon-arrow-left icon-sm"></i><strong>Voltar Etapa
+									</strong></button>
+							</div>
+							<h3 class="col-md-4 panel-title" style="text-align: center; font-size: 16px;"><i
+									class="flaticon flaticon-cash-transfer icon-md"></i> Previsão de Despesas</h3>
+							<div class="col-md-2" style="text-align: right;">
+								<button type="button" class="btn btn-outline-success pani" disabled
+									style="border-width:1;border-color:white;"><strong>Próxima Etapa </strong><i
+										class="flaticon flaticon-arrow-right icon-sm"></i></button>
+							</div>
+						</div>
+					</div>
+					<div class="panel-body">
+						<div class="form-group">
+							<div class="form-group row justify-content-center">
+								<div class="col-md-3">
+									<label for="custo">Evento sem custo ?</label>
+									<div class="checkbox">
+										<label><input type="checkbox" name="custo" id="custo">Sim</label>
+									</div>
+								</div>
+								<div class="col-md-2">
+									<label for="txt_vinscricao">Valor Inscrição: <span
+											class="Obrigatorio"><strong>*</strong></span></label>
+									<input type="text" class="dinehiro form-control" name="txt_vinscricao"
+										id="txt_vinscricao" onchange="formatarMoeda(this)" onkeyup="somar()">
+								</div>
+								<div class="col-md-2">
+									<label for="c">N° Participantes: <span
+											class="Obrigatorio"><strong>*</strong></span></label>
+									<input type="text" class="form-control" name="inscritos" id="inscritos"
+										onkeyup="somar()">
+								</div>
+								<div class="col-md-2">
+									<label for="txt_vtotal">Investimento: </label>
+									<sup class="flaticon flaticon-info icon-xs" data-toggle="tooltip"
+										data-placement="top"
+										title="Investimento: valor da Inscrição * número de participantes"
+										aria-hidden="true"></sup>
+									<div class="input-group date">
+										<input type="text" class="dinehiro form-control" name="investimento"
+											id="investimento" onchange="formatarMoeda(this)" readonly>
+										<span class="input-group-addon"><span
+												class="flaticon flaticon-cash"></span></span>
+									</div>
+								</div>
+							</div>
+							<div class="form-group row justify-content-center">
+								<div class="col-md-3">
+									<label for="despesa">Terá outras despesas ?</label>
+									<div class="checkbox">
+										<label><input type="checkbox" name="despesa" id="despesa">Sim</label>
+									</div>
+								</div>
+								<div class="col-md-2">
+									<label for="txt_diarias">Valor das Diárias: <span
+											class="Obrigatorio"><strong>*</strong></span></label>
+									<input type="text" class="dinehiro form-control" name="txt_diarias" id="txt_diarias"
+										onchange="formatarMoeda(this)" onkeyup="somar()">
+								</div>
+								<div class="col-md-2">
+									<label for="txt_passagens">Valor Passagens: <span
+											class="Obrigatorio"><strong>*</strong></span></label>
+									<input type="text" class="dinehiro form-control" name="txt_passagens"
+										id="txt_passagens" onchange="formatarMoeda(this)" onkeyup="somar()">
+								</div>
+								<div class="col-md-2">
+									<label for="txt_vtotal">Valor Total: </label>
+									<sup class="flaticon flaticon-info icon-xs" data-toggle="tooltip"
+										data-placement="top"
+										title="Valor Total: soma de todos os valores * número de participantes"
+										aria-hidden="true"></sup>
+									<div class="input-group date">
+										<input type="text" class="dinehiro form-control" name="txt_vtotal"
+											id="txt_vtotal" onchange="formatarMoeda(this)" readonly>
+										<span class="input-group-addon"><span
+												class="flaticon flaticon-cash"></span></span>
+									</div>
+								</div>
+							</div>
+							<div class="form-group" id="outras_despesas">
+								<div class="row justify-content-center">
+									<div class="col-md-4">
+										<label for="txt_outras">Outras Despesas: <span
+												class="Obrigatorio"><strong>*</strong></span></label>
+										<input type="text" class="form-control" name="txt_outras" id="txt_outras">
+									</div>
+									<div class="col-md-3">
+										<label for="txt_outras">Valor Total das <u>Despesas</u>: <span
+												class="Obrigatorio"><strong>*</strong></span></label>
+										<input type="text" class="dinheiro form-control" name="valor" id="valor"
+											onchange="formatarMoeda(this)" onkeyup="somar()">
+									</div>
+								</div>
+							</div>
+						</div>
+						<hr>
+						<div class="row justify-content-center">
+							<div class="panel panel-primary col-md-8 verde " id="dotacao">
+								<div class="panel-body ">
+									<div class="form-group">
+										<div class="row">
+											<div class="col-md-9">
+												<label for="txt_projeto">Projeto:</label>
+												<input type="zoom" id="txt_projeto" name="txt_projeto" data-zoom="{
+														'displayKey':'NOME',
+														'datasetId':'dsprojeto',
+														'maximumSelectionLength':'1',
+														'placeholder':'Escolha o projeto',
+														'fields':[
+														{
+															'field':'CODCCUSTO',
+															'label':'CODIGO'
+														},{
+																'field':'NOME',
+																'label':'NOME',
+																'standard':'true'
+														}
+														]
+														}">
+											</div>
+											<div class="col-md-3">
+												<label for="txt_saldo">Saldo:</label>
+												<input class="form-control" type="text" name="txt_saldo" id="txt_saldo"
+													readonly>
+											</div>
+										</div>
+										<br>
+										<div class="row">
+											<div class="col-md-9">
+												<label for="txt_acao">Ação:</label>
+												<input type="zoom" class="form-control" id="txt_acao" name="txt_acao"
+													data-zoom="{
+														'displayKey':'NOME',
+														'datasetId':'dsacao',
+														'maximumSelectionLength':'1',
+														'placeholder':'Escolha a ação',
+														'fields':[
+														{
+															'field':'CODCCUSTO',
+															'label':'CODIGO',
+															'search':'true'
+															
+														},{
+																'field':'NOME',
+																'label':'NOME',
+																'search':'true',
+																'standard':'true'
+														}
+														]
+														}">
+											</div>
+										</div>
+										<br>
+										<div class="row">
+											<div class="col-md-9">
+												<label for="txt_recursos">Unidade:</label>
+												<input type="zoom" class="form-control" id="txt_recursos"
+													name="txt_recursos" data-zoom="{
+														'displayKey':'NOME',
+														'datasetId':'dsunidade',
+														'maximumSelectionLength':'1',
+														'placeholder':'Escolha a unidade',
+														'fields':[
+														{
+															'field':'CODCCUSTO',
+															'label':'CODIGO'
+														},{
+																'field':'NOME',
+																'label':'NOME',
+																'standard':'true'
+														}
+														]
+														}">
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+
+				<div class="panel panel-primary" id="UGP">
+					<div class="panel-heading">
+						<h3 class="panel-title" style="text-align: center; font-size: 16px;"><i
+								class="flaticon flaticon-mortarboard icon-md"></i> Gestão de Pessoas</h3>
+					</div>
+					<div class="panel-body">
+						<div class="form-group row justify-content-center">
+							<div class="col-md-4">
+								<label><u>QUESTÃO 1</u>: A solicitação está instruída em conformidade com a Instrução
+									Normativa INs 18 em vigor ? <span
+										class="Obrigatorio"><strong>*</strong></span></label>
+							</div>
+							<div class="col-md-2">
+								<div class="checkbox" onchange="verifcheck()">
+									<label><input type="checkbox" name="q1_s" id="q1_s">Sim</label>
+									<label><input type="checkbox" name="q1_n" id="q1_n">Não</label>
+								</div>
+							</div>
+						</div>
+
+
+						<div class="form-group row justify-content-center">
+							<div class="col-md-4">
+								<label><u>QUESTÃO 2</u>: O custo do evento encontra-se dentro do padrão praticado no
+									mercado ? <span class="Obrigatorio"><strong>*</strong></span></label>
+							</div>
+							<div class="col-md-2">
+								<div class="checkbox" onchange="verifcheck()">
+									<label><input type="checkbox" name="q3_s" id="q3_s">Sim</label>
+									<label><input type="checkbox" name="q3_n" id="q3_n">Não</label>
+									<label><input type="checkbox" name="q3" id="q3">Não Há Custo</label>
+								</div>
+							</div>
+						</div>
+
+						<div class="form-group row justify-content-center">
+							<div class="col-md-4">
+								<label><u>QUESTÃO 3</u>: A programação do Evento indica que os conteúdos abordados
+									contribuirão para a aquisição de conhecimento e apefeiçoamento do(a) participante ?
+									<span class="Obrigatorio"><strong>*</strong></span></label>
+							</div>
+							<div class="col-md-2">
+								<div class="checkbox" onchange="verifcheck()">
+									<label><input type="checkbox" name="q2_s" id="q2_s">Sim</label>
+									<label><input type="checkbox" name="q2_n" id="q2_n">Não</label>
+									<label><input type="checkbox" name="q2" id="q2">Em Parte</label>
+								</div>
+							</div>
+						</div>
+
+						<div id="ugp_inmercado">
+							<div class="form-group row justify-content-center">
+								<div class="col-md-4">
+									<label><u>QUESTÃO 4</u>: Identificado Evento Similar ? <span
+											class="Obrigatorio"><strong>*</strong></span></label>
+								</div>
+								<div class="col-md-2">
+									<div class="checkbox" onchange="verifcheck()">
+										<label><input type="checkbox" name="q5_s" id="q5_s">Sim</label>
+										<label><input type="checkbox" name="q5_n" id="q5_n">Não</label>
+									</div>
+								</div>
+							</div>
+							<div class="form-group row justify-content-center">
+								<div class="col-md-4">
+									<label><u>QUESTÃO 5</u>: O(A) Empregado(a) já particpou de evento de mercado no
+										presente ano ? <span class="Obrigatorio"><strong>*</strong></span></label>
+								</div>
+								<div class="col-md-2">
+									<div class="checkbox" onchange="verifcheck()">
+										<label><input type="checkbox" name="q4_s" id="q4_s">Sim</label>
+										<label><input type="checkbox" name="q4_n" id="q4_n">Não</label>
+									</div>
+								</div>
+								<div id="qts">
+									<div class="col-md-8">
+										<label for="quantos">Quantos ? <span
+												class="Obrigatorio"><strong>*</strong></span></label>
+										<input type="text" name="quantos" id="quantos" class="form-control">
+									</div>
+								</div>
+							</div>
+						</div>
+
+
+						<div class="form-group row justify-content-center">
+							<div class="col-md-6">
+								<div class="">
+									<label for="obs">Observação :</label>
+									<textarea name="obs" id="obs" class="form-control"></textarea>
+								</div>
+							</div>
+						</div>
+						<div class="form-group row justify-content-center">
+							<div class="checkbox" onchange="verifcheck()">
+								<label><input type="checkbox" name="q6_s" id="q6_s"><strong>Favorável ao Pleito
+									</strong> </label>
+								<br>
+								<label><input type="checkbox" name="q6_n" id="q6_n"><strong>Não Favorável ao Pleito
+									</strong></label>
+							</div>
+						</div>
+
+						<div class="form-group row justify-content-center">
+							<div class="panel panel-primary col-md-4 verde">
+								<div class="panel-body">
+									<div class="form-group row justify-content-center">
+										<div class="col-md-12" style="text-align: center;">
+											<label>Análise e Conferência da Alçada <span
+													class="Obrigatorio"><strong>*</strong></span></label>
+										</div>
+										<div class="col-md-12" style="text-align: center;">
+											<div class="checkbox" onchange="verifcheck()">
+												<label><input type="checkbox" name="q7_s" id="q7_s">Contrato</label>
+												<label style="padding-left: 40px"><input type="checkbox" name="q7_n" id="q7_n">Compra</label>
+											</div>
+										</div>
+
+									</div>
+								</div>
+							</div>
+						</div>
+
+					</div>
+				</div>
+			</div>
+
+			<div class="col-md-5">
+				<div class="panel panel-primary" id="panel_solicitante">
+					<div class="panel-heading">
+						<div class="row justify-content-center">
+							<!--div class="col-md-1" style="text-align: left;">
+							<button type="button" class="btn btn-outline-success" disabled ><i class="flaticon flaticon-arrow-left icon-sm"></i> Voltar Etapa</button>
+						</div-->
+							<h3 class="col-md-4 panel-title" style="text-align: center; font-size: 16px;"><i
+									class="flaticon flaticon-card-user icon-md"></i> Dados do Solicitante</h3>
+							<!--div class="col-md-1" style="text-align: right;">
+							<button type="button" class="btn btn-outline-success" onclick="teste('panel_dadosocup')">Proxima Etapa <i class="flaticon flaticon-arrow-right icon-sm"></i></i></button>
+						</div-->
+						</div>
+					</div>
+					<div class="panel-body">
+						<div class="form-group row justify-content-center">
+							<div class="col-md-5">
+								<label for="Solicitante">Nome do Solicitante:</label>
+								<select dataset="colleague" datasetkey="colleagueId" datasetvalue="colleagueName"
+									class="form-control" id="Solicitante" name="Solicitante"></select>
+							</div>
+							<div class="col-md-3">
+								<label for="mt_solicit">Matrícula:</label>
+								<input type="text" class="form-control" name="mt_solicit" id="mt_solicit" readonly>
+							</div>
+						</div>
+						<div class="form-group row justify-content-center">
+							<div class="col-md-8">
+								<label for="cmb_GerenteSolicitante">Gerente/Superior :</label>
+								<input type="text" class="form-control" name="cmb_GerenteSolicitante"
+									id="cmb_GerenteSolicitante" readonly>
+							</div>
+						</div>
+						<div class="form-group row justify-content-center">
+							<div class="col-md-8">
+								<label for="txt_unidade">Unidade Demandante:</label>
+								<input type="text" class="form-control" name="txt_unidade" id="txt_unidade" readonly>
+							</div>
+						</div>
+						<div class="form-group row justify-content-center">
+							<div class="col-md-4">
+								<label for="DataSolicita">Data</label>
+								<input type="text" class="form-control" name="DataSolicita" id="DataSolicita">
+							</div>
+							<div class="col-md-4">
+								<label for="NmSolicita">Número da Solicitação</label>
+								<input type="text" class="form-control" name="NmSolicita" id="NmSolicita">
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<script>
+				String.prototype.isEmpty = function () {
+					return (!this || 0 === this.length);
+				};
+
+				var beforeSendValidate = function (numState, nextState) {
+					var erromsg = "";
+					//var lastState = document.getElementById("hdn_lastState").value;
+
+					console.log("-beforeSendValidate-");
+					console.log("lastState: " + document.getElementById("hdn_lastState").value);
+					console.log("numState: " + numState);
+					console.log("nextState: " + nextState);
+					//console.log("value: " + voto);
+					console.log("validate button")
+
+					if (document.getElementById("hdn_lastState").value == 65 && numState == 66 && nextState != 65) {
+						erromsg += "Atenção! a solicitação deve retornar para Aprovação do Superior.\n"
+					}
+					else if (document.getElementById("hdn_lastState").value == 67 && numState == 66 && nextState != 67) {
+						erromsg += "Atenção! a solicitação deve retornar para Analise da UCSebrae.\n"
+					}
+					else {
+						document.getElementById("hdn_lastState").value = numState;
+						console.log("lastState: " + document.getElementById("hdn_lastState").value);
+						console.log("numState: " + numState);
+					}
+					/*if(numState==18 && nextState==34){
+					var erromsg = "";
+					if(voto==null || voto=='0'){
+						erromsg += "Favor expressar grau de Satisfação da Solicitação!\n"
+					}
+					}*/
+
+					if (erromsg.trim().isEmpty() == false) { throw "\n" + erromsg; }
+				}
+			</script>
+			<div class="col-md-12">
+				<div class="ggg">
+					<div class="form-group row ">
+						<div class="col-md-12">
+							<div class="col-md-10" style="text-align:left">
+								<img src="atic-branco.png" title="Logo do ATIC REAL OFFICIAL" width="80" height="37">
+							</div>
+							<div class="col-md-2" style="text-align:right">
+								<img src="sebrae-branco.png" title="Logo do SEBRAE" width="80" height="37">
+							</div>
+						</div>
+
+					</div>
+				</div>
+			</div>
+
+		</form>
+	</div>
+</body>
+<script>
+	var inicio = FLUIGC.calendar('#txt_inicio', {
+		pickDate: true,
+		pickTime: false,
+		useMinutes: false,
+		useSeconds: false,
+		useCurrent: false,
+		/*minDate: '01/07/2022',
+		maxDate: '31/07/2022',*/
+		//showToday: false,
+		language: 'pt-br',
+		/*defaultDate: "",
+		enabledDates: teste2(),
+		useStrict: false,*/
+		sideBySide: false
+	});
+	var fim = FLUIGC.calendar('#txt_termino', {
+		pickDate: true,
+		pickTime: false,
+		useMinutes: false,
+		useSeconds: false,
+		useCurrent: false,
+		/*minDate: '01/07/2022',
+		maxDate: '31/07/2022',*/
+		language: 'pt-br',
+		sideBySide: false
+	});
+
+</script>
+
+</html>
